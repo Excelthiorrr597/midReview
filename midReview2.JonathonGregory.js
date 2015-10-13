@@ -17,6 +17,8 @@
 // var colorDicts = [{red: 'rouge',blue:'bleu'},{red:'rojo',blue:'azul'},{red:'rote',blue:'blau'}]
 // getValues(colorDicts,'blue') --> ['bleu','azul','blau']
 
+// write a function called map that will take an array and a callback as input.
+
 var menu = {
     steak: '$25',
     wine: '$40',
@@ -70,8 +72,8 @@ describe('Restaurant' , function() {
 })
 ////////////////////////////
 
-function pipeline(str, func1, func2){
-    return func1(func2(str))
+function pipeline(val, func1, func2){
+    return func2(func1(val))
 }
 
 // test for #8
@@ -85,7 +87,7 @@ describe("pipeline()",function(){
         expect(pipeline(10,squareNum,inverseNum)).to.equal(.01)
     })
 })
-////////////////////////////
+///////////////////////////////
 
 function getValues(objArr, key){
     var filtArr = []
@@ -115,3 +117,26 @@ describe("getValues()",function(){
             expect(getValues(books,'title')).to.deep.equal(["lolita","harry potter and the powerful skin rash", "oblivion"])
     })
 })
+///////////////////////////////////
+
+var map = function(arr, callback){
+    var result = []
+    arr.forEach(function(val){
+        result.push(callback(val))
+    })
+//  for (var i = 0; i < arr.length; i++){
+//      var el = arr[i]
+//      result.push(callback(el))
+//      }  
+    return result
+}
+
+//////////////////////////////////
+Array.prototype.map = function(callback){
+    var result = []
+    for (var i = 0; i < this.length; i++){
+        result.push(callback(this[i]))
+    }
+    result.push('x')
+    return result
+}
